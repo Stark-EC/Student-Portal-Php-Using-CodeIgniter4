@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="/favicon.ico">
 
-    <!-- STYLES -->
+    <!-- STYLES --
 
     <style {csp-style-nonce}>
         * {
@@ -200,7 +200,7 @@
 </head>
 <body>
 
-<!-- HEADER: MENU + HEROE SECTION -->
+<!-- HEADER: MENU + HEROE SECTION --
 <header>
 
     <div class="menu">
@@ -233,7 +233,7 @@
 
 </header>
 
-<!-- CONTENT -->
+<!-- CONTENT --
 
 <section>
 
@@ -292,7 +292,7 @@
 
 </div>
 
-<!-- FOOTER: DEBUG INFO + COPYRIGHTS -->
+<!-- FOOTER: DEBUG INFO + COPYRIGHTS --
 
 <footer>
     <div class="environment">
@@ -312,7 +312,7 @@
 
 </footer>
 
-<!-- SCRIPTS -->
+<!-- SCRIPTS --
 
 <script {csp-script-nonce}>
     document.getElementById("menuToggle").addEventListener('click', toggleMenu);
@@ -325,7 +325,21 @@
     }
 </script>
 
-<!-- -->
+<!-- --
 
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the Student Portal</title>
+</head>
+<body>
+    <h1>Welcome to the Student Portal!</h1>
+    <p>Your registered courses will appear here.</p>
 </body>
 </html>
