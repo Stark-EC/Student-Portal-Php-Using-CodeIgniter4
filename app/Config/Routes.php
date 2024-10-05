@@ -12,4 +12,9 @@ $routes->get('/login', 'Login::index');
 $routes->post('/login/authenticate', 'Login::authenticate');
 $routes->get('/logout', 'Login::logout');
 $routes->get('/dashboard', 'Dashboard::index');
+$routes->get('/dashboard/register-courses', 'Dashboard::registerCourses');
+$routes->post('/dashboard/processRegisterCourses', 'Dashboard::processRegisterCourses');
+$routes->get('/dashboard/registered-courses', 'Dashboard::viewRegisteredCourses');
+$routes->get('/dashboard/profile', 'Dashboard::updateProfile');
+$routes->post('/dashboard/processUpdateProfile', 'Dashboard::processUpdateProfile');
 
