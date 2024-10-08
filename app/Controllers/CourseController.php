@@ -1,29 +1,58 @@
+<?php
+
 namespace App\Controllers;
 
 use App\Models\CourseModel;
-use App\Models\StudentCourseModel;
-use CodeIgniter\Controller;
+use App\Models\StudentCourseModel; // Import StudentCourseModel
 
-class CourseController extends Controller
+class CourseController extends BaseController
 {
     public function index()
     {
         $courseModel = new CourseModel();
-        $data['courses'] = $courseModel->findAll();  // Fetch all courses
-        return view('courses', $data);  // Load the view 'courses.php'
+        $data['courses'] = $courseModel->findAll(); // Fetch all courses to display
+        return view('register_course', $data); // Load view
     }
 
-    public function registeredCourses()
+    public function viewRegisteredCourses()
     {
+        // Assume user is logged in and we can get their user ID
+        $userId = session()->get('user_id'); 
+
+        // Create an instance of StudentCourseModel
         $studentCourseModel = new StudentCourseModel();
-        // Assuming you are fetching data based on logged-in student ID
-        $student_id = session()->get('student_id');
-        $data['registered_courses'] = $studentCourseModel->getRegisteredCourses($student_id);
-        return view('registered_courses', $data);  // Load the view 'registered_courses.php'
+        
+        // Fetch registered courses for the logged-in user
+        $data['registeredCourses'] = $studentCourseModel->getRegisteredCoursesByUser($userId);
+
+        // Load the view with registered courses
+        return view('registered_courses', $data);
     }
 
     public function register()
     {
-        // Registration logic here
+        // Validate input
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'course_id' => 'required|is_not_unique[courses.id]',
+        ]);
+
+        if (!$this->validate($validation->getRules())) {
+            // If validation fails, reload the form with errors
+            return redirect()->to('/courses')->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $studentCourseModel = new StudentCourseModel();
+
+        // Prepare data for insertion
+        $data = [
+            'student_id' => session()->get('user_id'), // Get the logged-in student's ID
+            'course_id' => $this->request->getPost('course_id'), // Course ID from the form
+        ];
+
+        // Register course for the student
+        $studentCourseModel->insert($data);
+
+        return redirect()->to('/registered-courses')->with('success', 'Course registered successfully!'); // Redirect with success message
     }
 }
