@@ -198,6 +198,15 @@ class App extends BaseConfig
      *
      * @see http://www.html5rocks.com/en/tutorials/security/content-security-policy/
      * @see http://www.w3.org/TR/CSP/
+     * 
      */
+    // public $cookiePrefix   = '';
+    // public $cookieDomain   = '';  // Set this to your domain if needed
+    // public $cookiePath     = '/';
+    // public $cookieSecure   = false;  // Set to true if you're using HTTPS
+    public $sessionCookieName = 'ci_session';
     public bool $CSPEnabled = false;
+    public $sessionExpiration = 3500;  // 2 hours session expiration
+    public $sessionDriver = 'CodeIgniter\Session\Handlers\DatabaseHandler';  // You can use 'FileHandler' or 'DatabaseHandler'
+
 }

@@ -22,6 +22,14 @@ class Dashboard extends BaseController
         return view('dashboard', $data);
     }
 
+    public function dashboard()
+{
+    echo '<pre>';
+    print_r(session()->get());
+    echo '</pre>';
+}
+
+
     // In app/Controllers/Dashboard.php
 
 public function registerCourses()

@@ -10,17 +10,16 @@
 
     <?php if (session()->getFlashdata('success')): ?>
         <p><?= session()->getFlashdata('success') ?></p>
-    <?php endif; ?>
+    <?php endif ?>
 
     <?php if (!empty($registeredCourses)): ?>
         <ul>
             <?php foreach ($registeredCourses as $course): ?>
                 <li><?= esc($course['course_name']) ?> - <?= esc($course['course_description']) ?></li>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </ul>
     <?php else: ?>
         <p>You have not registered for any courses yet.</p>
-    <?php endif; ?>
-
+    <?php endif ?>
 </body>
 </html>

@@ -81,14 +81,15 @@
     <?php endif ?>
 
     <form action="<?= base_url('login/authenticate') ?>" method="post">
-        <?= csrf_field() ?>
-        <label for="username">Username</label>
-        <input type="text" name="username" required>
+    <?= csrf_field() ?>
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" required>
 
-        <label for="password">Password</label>
-        <input type="password" name="password" required>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required>
 
-        <button type="submit">Login</button>
-    </form>
+    <button type="submit">Login</button>
+</form>
+
 </body>
 </html>
