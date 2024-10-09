@@ -10,6 +10,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
+            text-align: center;
             background-color: #f4f4f4;
         }
 
@@ -53,19 +54,6 @@
             background-color: #45a049;
         }
 
-        p {
-            margin: 10px 0;
-        }
-
-        a {
-            color: #4CAF50;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
         .error {
             color: red;
             background-color: #f8d7da;
@@ -98,25 +86,17 @@
 
     <!-- Course Search Form -->
     <form action="<?= base_url('courses/search') ?>" method="post">
-    <?= csrf_field() ?>
-    <label for="course_code">Search Course by Code:</label>
-    <input type="text" name="course_code" id="course_code" placeholder="Enter course code, e.g. MATH101" required>
-    
-    <!-- Search Icon Button -->
-    <button type="submit">
-        <img src="<?= base_url('public/search_icon.png'); ?>" alt="" style="width: 20px;">Search</button>
-</form>
-
+        <?= csrf_field() ?>
+        <label for="course_code">Search Course by Code:</label>
+        <input type="text" name="course_code" id="course_code" placeholder="Enter course code, e.g. MATH101" required>
+        
+        <!-- Search Icon Button -->
+        <button type="submit">
+            <img src="<?= base_url('public/search_icon.png'); ?>" alt="" style="width: 20px;"> Search
+        </button>
+    </form>
 
     <!-- If a course is found, display the course details and registration button -->
-    <?php if (session()->getFlashdata('success')): ?>
-    <p style="color: green;"><?= session()->getFlashdata('success') ?></p>
-<?php endif ?>
-
-<?php if (session()->getFlashdata('error')): ?>
-    <p style="color: red;"><?= session()->getFlashdata('error') ?></p>
-<?php endif ?>
-
     <?php if (isset($course)): ?>
         <h2>Course Found: <?= esc($course['course_name']) ?></h2>
         <p>Description: <?= esc($course['course_description']) ?></p>

@@ -87,8 +87,7 @@
     </header>
 
     <main>
-        <h1>Welcome to your Dashboard, <?= $username; ?>!</h1>
-        <p>Select an option from the navigation menu above.</p>
+    <h1>Welcome to your Dashboard, <?= session()->get('username') ?>!</h1> <!-- Displaying username -->        <p>Select an option from the navigation menu above.</p>
     </main>
 </body>
 </html>

@@ -87,6 +87,13 @@
 
     <form action="<?= base_url('register/store') ?>" method="post">
         <?= csrf_field() ?>
+        
+        <label for="first_name">First Name</label>
+        <input type="text" name="first_name" value="<?= old('first_name') ?>" required>
+
+        <label for="last_name">Last Name</label>
+        <input type="text" name="last_name" value="<?= old('last_name') ?>" required>
+
         <label for="username">Username</label>
         <input type="text" name="username" value="<?= old('username') ?>" required>
 

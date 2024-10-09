@@ -66,6 +66,6 @@
         </ul>
     </nav>
 
-    <h1>Welcome to the Student Portal</h1>
+    <h1>Register Or Login to Access your Student Portal</h1>
 </body>
 </html>
