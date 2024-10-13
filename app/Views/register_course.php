@@ -34,10 +34,10 @@
 
         input[type="text"] {
             width: calc(100% - 30px);
-            padding: 10px;
+            padding: 20px;
             margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            border: 5px solid  red;
+            border-radius: 2rem;
         }
 
         button {
@@ -74,39 +74,37 @@
     </style>
 </head>
 <body>
-    <h1>Search and Register Courses</h1>
+<?= $this->extend('/dashboard_layout') ?>
 
+<?= $this->section('content') ?>
+<div class="main-content">
+    <h1>Search and Register Courses</h1>
     <?php if (session()->getFlashdata('error')): ?>
         <p class="error"><?= session()->getFlashdata('error') ?></p>
     <?php endif ?>
-
     <?php if (session()->getFlashdata('success')): ?>
         <p class="success"><?= session()->getFlashdata('success') ?></p>
     <?php endif ?>
-
-    <!-- Course Search Form -->
     <form action="<?= base_url('courses/search') ?>" method="post">
         <?= csrf_field() ?>
         <label for="course_code">Search Course by Code:</label>
         <input type="text" name="course_code" id="course_code" placeholder="Enter course code, e.g. MATH101" required>
-        
-        <!-- Search Icon Button -->
         <button type="submit">
             <img src="<?= base_url('public/search_icon.png'); ?>" alt="" style="width: 20px;"> Search
         </button>
     </form>
 
-    <!-- If a course is found, display the course details and registration button -->
     <?php if (isset($course)): ?>
         <h2>Course Found: <?= esc($course['course_name']) ?></h2>
         <p>Description: <?= esc($course['course_description']) ?></p>
-        
         <form action="<?= base_url('courses/register') ?>" method="post">
             <?= csrf_field() ?>
             <input type="hidden" name="course_id" value="<?= $course['id'] ?>">
             <button type="submit">Register for this Course</button>
         </form>
     <?php endif ?>
+</div>
+<?= $this->endSection() ?>
 
     <!-- View Registered Courses Link -->
     <p><a href="<?= base_url('registered-courses') ?>">View Registered Courses</a></p>

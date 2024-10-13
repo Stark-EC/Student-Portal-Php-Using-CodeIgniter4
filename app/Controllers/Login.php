@@ -41,9 +41,10 @@ class Login extends BaseController
       }
   }  
 
-    public function logout()
-    {
-        session()->destroy();
-        return redirect()->to('/login'); // Redirect to home or login page after logout
-    }
+  public function logout()
+  {
+      session()->destroy();
+      return redirect()->to('/login')->with('success', 'You have logged out.');
+  }
+  
 }

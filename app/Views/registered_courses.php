@@ -6,7 +6,7 @@
     <title>Registered Courses</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 20px;
             text-align: center;
@@ -15,43 +15,73 @@
 
         h1 {
             color: #333;
+            margin-bottom: 20px;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
+        .table-container {
+            width: 100%;
+            overflow-x: auto; /* Allows horizontal scrolling for small screens */
         }
 
-        li {
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1.1em;
             background-color: #fff;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        p {
-            margin: 10px 0;
-        }
-
-        .success {
-            color: green;
-            background-color: #d4edda;
-            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
         }
 
-        .error {
-            color: red;
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            white-space: nowrap; /* Prevents text wrapping for better readability on small screens */
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+            transition: background-color 0.2s ease-in;
+        }
+
+        .no-courses {
             background-color: #f8d7da;
-            padding: 10px;
+            color: #721c24;
+            padding: 15px;
             border-radius: 5px;
+        }
+
+        /* Add horizontal scrolling for smaller screens */
+        @media (max-width: 768px) {
+            .table-container {
+                margin-top: 20px;
+                border: 1px solid #ddd;
+                overflow-x: auto;
+            }
         }
     </style>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
 </head>
 <body>
+
+<?= $this->extend('/dashboard_layout') ?>
+
+<?= $this->section('content') ?>
+    <div class="main-content">
+    
     <h1>Your Registered Courses</h1>
 
     <?php if (session()->getFlashdata('success')): ?>
@@ -59,16 +89,58 @@
     <?php endif ?>
 
     <?php if (!empty($registeredCourses)): ?>
-        <ul>
-            <?php foreach ($registeredCourses as $course): ?>
-                <li><?= esc($course['course_name']) ?> - <?= esc($course['course_description']) ?></li>
-            <?php endforeach ?>
-        </ul>
+        <div class="table-container">
+            <table id="coursesTable">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0)">Course Code &#9650;</th>
+                        <th onclick="sortTable(1)">Course Name &#9650;</th>
+                        <th onclick="sortTable(2)">Course Description &#9650;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($registeredCourses as $course): ?>
+                        <tr>
+                            <td><?= esc($course['course_code']) ?></td>
+                            <td><?= esc($course['course_name']) ?></td>
+                            <td><?= esc($course['course_description']) ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
     <?php else: ?>
-        <p>You have not registered for any courses yet.</p>
+        <p class="no-courses">You have not registered for any courses yet.</p>
     <?php endif ?>
+ 
+    </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+<?= $this->endSection() ?>
+
+<script>
+    // Simple table sorting function
+    function sortTable(columnIndex) {
+        var table = document.getElementById("coursesTable");
+        var rows = Array.from(table.rows).slice(1); // Skip the header row
+        var isAscending = table.getAttribute('data-sort-asc') === 'true';  // Toggle the sorting order
+
+        rows.sort(function(rowA, rowB) {
+            var cellA = rowA.cells[columnIndex].innerText.toLowerCase();
+            var cellB = rowB.cells[columnIndex].innerText.toLowerCase();
+
+            if (cellA < cellB) return isAscending ? -1 : 1;
+            if (cellA > cellB) return isAscending ? 1 : -1;
+            return 0;
+        });
+
+        rows.forEach(function(row) {
+            table.tBodies[0].appendChild(row); // Reorder the rows
+        });
+
+        // Toggle the sorting order for the next click
+        table.setAttribute('data-sort-asc', !isAscending);
+    }
+</script>
+
 </body>
 </html>

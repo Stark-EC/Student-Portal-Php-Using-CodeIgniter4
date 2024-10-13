@@ -70,25 +70,27 @@
     </style>
 </head>
 <body>
-    <h1>Update Password</h1>
+<?= $this->extend('/dashboard_layout') ?>
 
+<?= $this->section('content') ?>
+<div class="main-content">
+    <h1>Update Password</h1>
     <?php if (session()->getFlashdata('success')): ?>
         <p class="success"><?= session()->getFlashdata('success') ?></p>
     <?php endif ?>
-
     <?php if (session()->getFlashdata('errors')): ?>
         <p class="error"><?= implode('<br>', session()->getFlashdata('errors')) ?></p>
     <?php endif ?>
-
     <form action="<?= base_url('profile/update') ?>" method="post">
         <?= csrf_field() ?>
         <label for="new_password">New Password</label>
         <input type="password" name="new_password" id="new_password" required>
-
         <label for="confirm_password">Confirm Password</label>
         <input type="password" name="confirm_password" id="confirm_password" required>
-
         <button type="submit">Update Password</button>
     </form>
+</div>
+<?= $this->endSection() ?>
+
 </body>
 </html>

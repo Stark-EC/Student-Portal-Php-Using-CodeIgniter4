@@ -7,7 +7,8 @@ use CodeIgniter\Model;
 class CourseModel extends Model
 {
     protected $table = 'courses';  // The table to use
-    protected $allowedFields = ['course_name', 'course_description', 'course_code'];
+    protected $primaryKey = 'id';
+    protected $allowedFields = ['course_code', 'course_name', 'course_description'];
 
     // Fetch all courses
     public function getCourses()

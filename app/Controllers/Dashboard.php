@@ -110,7 +110,7 @@ public function updateProfile()
     }
 
     // Load the student's profile data
-    $model = new \App\Models\UserModel();
+    $model = new \App\Models\StudentModel();
     $data['student'] = $model->find(session()->get('id'));
 
     // Load the profile update form view
@@ -130,19 +130,29 @@ public function processUpdateProfile()
     }
 
     // Get the posted data
-    $username = $this->request->getPost('username');
-    $email = $this->request->getPost('email');
+    $newPassword = $this->request->getPost('new_password');
+    $confirmPassword = $this->request->getPost('confirm_password');
 
-    // Update the student's profile in the `users` table
+    // Validate the password
+    if ($newPassword !== $confirmPassword) {
+        return redirect()->back()->with('error', 'Passwords do not match.')->withInput();
+    }
+
+    // Update the student's password in the `students` table
     $model = new \App\Models\UserModel();
-    $model->update(session()->get('id'), [
-        'username' => $username,
-        'email' => $email,
+
+    // Assuming the session contains the student ID
+    $studentId = session()->get('student_id');
+
+    // Update password using the where clause to specify the record
+    $model->update($studentId, [
+        'password' => password_hash($newPassword, PASSWORD_DEFAULT),
     ]);
 
     // Redirect back to the dashboard with a success message
-    return redirect()->to('/dashboard')->with('success', 'Profile updated successfully');
+    return redirect()->to('/profile')->with('success', 'Password updated successfully');
 }
+
 
 
 }

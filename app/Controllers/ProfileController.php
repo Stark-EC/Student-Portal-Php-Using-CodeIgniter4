@@ -4,38 +4,40 @@ namespace App\Controllers;
 use App\Models\StudentModel;
 use CodeIgniter\Controller;
 
-class ProfileController extends Controller
+class ProfileController extends BaseController
 {
-    public function index()
+    public function updatePassword()
     {
-        return view('update_profile');
-    }
-
-    public function update()
-    {
-        // Get the logged-in student's ID from the session
-        $studentId = session()->get('student_id');
+        // Check if the user is logged in
+        $session = session();
+        $studentId = $session->get('student_id');
         if (!$studentId) {
-            return redirect()->to('/login')->with('error', 'You need to log in first.');
+            return redirect()->to('/login')->with('error', 'You must log in first.');
         }
 
-        // Validate the new password
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'new_password' => 'required|min_length[6]',
-            'confirm_password' => 'matches[new_password]'
-        ]);
+        // Get the new password from the form
+        $newPassword = $this->request->getPost('new_password');
+        $confirmPassword = $this->request->getPost('confirm_password');
 
-        if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+        // Check if both passwords match
+        if ($newPassword !== $confirmPassword) {
+            return redirect()->back()->with('error', 'Passwords do not match.');
         }
+
+        // Hash the new password
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
         // Update the password in the database
         $StudentModel = new StudentModel();
-        $StudentModel->update($studentId, [
-            'password' => password_hash($this->request->getPost('new_password'), PASSWORD_DEFAULT)
-        ]);
+        $StudentModel->update($studentId, ['password' => $hashedPassword]);
 
-        return redirect()->to('/profile')->with('success', 'Password updated successfully!');
+        // Set a success message in the session and redirect back to the profile page
+        return redirect()->to('/profile')->with('success', 'Password changed successfully.');
+    }
+
+    public function index()
+    {
+        // Load profile view (you can pass in data here as needed)
+        return view('profile');
     }
 }

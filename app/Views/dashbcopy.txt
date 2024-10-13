@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Student Dashboard</title>
     <style>
         /* General reset */
@@ -116,76 +117,67 @@
             bottom: 0;
             width: calc(100% - 250px); /* Adjust width to fit with sidebar */
         }
+
+        .footer p{
+            
+            color: black;
+         }
     </style>
 </head>
 <body>
-<?= $this->extend('/dashboard_layout') ?>
 
     <!-- Sidebar -->
-    
-    <?= $this->section('content') ?>
- 
-    <!-- Main Content Area -->
-    <div class="main-content">
-        <!-- Header -->
-        <div class="header">
-            <h1>Welcome, <?= session()->get('username'); ?>!</h1>
-            <p>Student Dashboard</p>
-        </div>
-
-        <!-- Dashboard Content -->
-        <div class="dashboard-content">
-            <h2>Dashboard Overview</h2>
-            <p>Select an option from the sidebar to navigate through your dashboard features. This is your central hub for all academic activities. Access your courses, 
-view important announcements, and track your progress all in one place! Check out the latest announcements and updates from your instructors. 
-Stay informed about important deadlines and upcoming events! Keep your information up to date. 
-Update your profile details and change your password to ensure your account is secure. 
-Explore a variety of learning materials and resources to enhance your skills. From tutorials to study guides, everything you need is right here!</p>
-        </div>
-    </div> <br>
-
-     <!-- Quick Links -->
-      <style>
-         .card {
-            background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
-            padding: 15px;
-        }
-
-        .card p {
-            margin: 5px 0;
-        }
-
-        .card h3 {
-            margin-top: 0;
-        }
-        .button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 15px;
-            text-decoration: none;
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 10px;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-        </style>
-     <div class="card">
-        <h3>Quick Links</h3>
-        <a href="#" class="button">Exam Results</a>
-        <a href="#" class="button">View Grades</a>
-        <a href="#" class="button">Assessment</a>
+    <div class="sidebar">
+        <h2>Student Portal</h2>
+        <ul>
+            <li>
+            <a href="<?= base_url('dashboard'); ?>">Dashboard</a>
+            </li>
+            <li><a href="<?= base_url('courses'); ?>">Register Courses</a></li>
+            <li><a href="<?= base_url('registered-courses'); ?>">View Registered Courses</a></li>
+            <li><a href="<?= base_url('profile'); ?>">Update Profile</a></li>
+            <li><a href="<?= base_url('logout'); ?>">Logout</a></li>
+        </ul>
     </div>
 
+    <?= $this->extend('/dashboard_layout') ?>
+
+<?= $this->section('content') ?>
+<div class="main-content">
+    <!-- Header -->
+    <div class="header">
+        <h1>Welcome, <?= session()->get('username'); ?>!</h1>
+        <p>Student Dashboard</p>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+        <h2>Dashboard Overview</h2>
+        <p>Select an option from the sidebar to navigate through your dashboard features.</p>
+    </div>
+</div>
 <?= $this->endSection() ?>
 
 
     <!-- Footer -->
-   
+    <div class="footer">
+        <p>&copy; 2024 Stark E.C Tech Exchange. All rights reserved.</p>
+    </div>
 
 </body>
 </html>
+
+
+<div class="sidebar">
+    <ul>
+        <li><a href="<?= base_url('dashboard') ?>">Dashboard</a></li>
+        <li><a href="<?= base_url('courses') ?>">Register Courses</a></li>
+        <li><a href="<?= base_url('registered-courses') ?>">View Registered Courses</a></li>
+        <li><a href="<?= base_url('profile') ?>">Update Profile</a></li>
+        <li><a href="<?= base_url('logout') ?>">Logout</a></li>
+    </ul>
+</div>
+
+<div class="content">
+    <?= $this->renderSection('content') ?> <!-- This section will be replaced by view-specific content -->
+</div>

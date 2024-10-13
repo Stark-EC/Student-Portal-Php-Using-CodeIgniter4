@@ -12,8 +12,8 @@ $routes->get('login', 'Login::index');            // Display login page
 $routes->post('login/authenticate', 'Login::authenticate');  // Handle login form submission
 $routes->get('logout', 'Login::logout');          // Logout route
 $routes->get('/dashboard', 'Dashboard::index');
-$routes->get('/profile', 'ProfileController::index');
-$routes->post('/profile/update', 'ProfileController::update');
+$routes->get('/profile', 'Dashboard::updateProfile');
+$routes->post('/profile/update', 'ProfileController::updatePassword');
 $routes->post('/courses/search', 'CourseController::searchCourse');
 $routes->get('/courses', 'CourseController::index');
 $routes->post('/courses/register', 'CourseController::register');

@@ -78,19 +78,26 @@ class CourseController extends BaseController
 
     public function viewRegisteredCourses()
     {
-        // Get logged-in student ID
+        // Get the logged-in student ID
         $studentId = session()->get('student_id');
+        
+        // Check if the student is logged in
         if (!$studentId) {
             return redirect()->to('/login')->with('error', 'You need to log in first.');
         }
-
+    
+        // Load the models
+        $StudentCourseModel = new \App\Models\StudentCourseModel();
+        $CourseModel = new \App\Models\CourseModel();  // Assuming this is your model for courses
+    
         // Fetch registered courses for the logged-in student
-        $studentCourseModel = new StudentCourseModel();
-        $data['registeredCourses'] = $studentCourseModel->where('student_id', $studentId)
+        $data['registeredCourses'] = $StudentCourseModel->where('student_id', $studentId)
                                                         ->join('courses', 'courses.id = student_courses.course_id')
+                                                        ->select('courses.course_code, courses.course_name, courses.course_description')
                                                         ->findAll();
-
+    
         // Load the registered courses view
         return view('registered_courses', $data);
     }
+    
 }

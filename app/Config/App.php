@@ -206,7 +206,7 @@ class App extends BaseConfig
     // public $cookieSecure   = false;  // Set to true if you're using HTTPS
     public $sessionCookieName = 'ci_session';
     public bool $CSPEnabled = false;
-    public $sessionExpiration = 3500;  // 5 hours session expiration
+    public $sessionExpiration = 120; // 120 seconds (2 minutes)
     public $sessionDriver = 'CodeIgniter\Session\Handlers\DatabaseHandler';  // You can use 'FileHandler' or 'DatabaseHandler'
 
 }
