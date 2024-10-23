@@ -13,7 +13,6 @@
     <?php if (session()->getFlashdata('success')): ?>
         <p style="color: green;"><?= session()->getFlashdata('success') ?></p>
     <?php endif; ?>
-
     <!-- Add form or profile details here -->
 
     <p><a href="<?= base_url('logout') ?>">Logout</a></p>

@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\CourseModel;
 use App\Models\StudentCourseModel;
 use CodeIgniter\Controller;
+use App\Models\CourseProgressModel;
 
 class CourseController extends BaseController
 {
@@ -99,5 +100,63 @@ class CourseController extends BaseController
         // Load the registered courses view
         return view('registered_courses', $data);
     }
+
+    public function viewProgress() {
+        $session = session();
+        $studentId = $session->get('student_id');
+    
+        $courseProgressModel = new CourseProgressModel();
+        $progressData = $courseProgressModel->getProgressByStudent($studentId);
+    
+        return view('course_progress', ['progressData' => $progressData]);
+    }
+    
+
+    public function updateProgress($courseId) {
+        $session = session();
+        $studentId = $session->get('student_id');
+    
+        if ($this->request->getMethod() === 'post') {
+            $progressPercentage = $this->request->getPost('progress_percentage');
+    
+            $courseProgressModel = new \App\Models\CourseProgressModel();
+            $courseProgressModel->updateProgress($studentId, $courseId, $progressPercentage);
+    
+            return redirect()->to('/viewProgress')->with('success', 'Progress updated successfully.');
+        }
+    
+        return view('update_course_progress', ['courseId' => $courseId]);
+    }
+
+    // app/Controllers/CourseController.php
+
+// app/Controllers/CourseController.php
+
+public function enrolledCourses() {
+    $session = session();
+    $studentId = $session->get('student_id');
+
+    // Fetch registered courses and progress
+    $courseModel = new CourseModel();
+    $courseProgressModel = new CourseProgressModel();
+
+    // Get all course IDs the student is enrolled in
+    $courseIds = $courseProgressModel->where('student_id', $studentId)->findColumn('course_id');
+
+    // Fetch courses that match the retrieved IDs
+    if ($courseIds) {
+        $enrolledCourses = $courseModel->whereIn('id', $courseIds)->findAll();
+
+        // Fetch progress for each course
+        foreach ($enrolledCourses as &$course) {
+            $course['progress'] = $courseProgressModel->getProgress($studentId, $course['id']);
+        }
+    } else {
+        $enrolledCourses = []; // No enrolled courses
+    }
+
+    return view('enrolled_courses', ['courses' => $enrolledCourses]);
+}
+
     
 }

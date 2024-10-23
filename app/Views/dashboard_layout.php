@@ -796,7 +796,7 @@ main .recent-orders a{
     }
 
     aside .logo h2{
-        display: inline;
+        display: block;
     }
 
     aside .sidebar h3{
@@ -935,47 +935,63 @@ main .recent-orders a{
                 </a>
                 <a href="<?= base_url('profile'); ?>">
                     <span class="material-icons-sharp">
-                    person_outline
+                        settings
                     </span>
-                    <h3>Change Password</h3>
+                    <h3>Settings</h3>
                 </a>
-                <a href="#">
+                <!-- <a href="< ?= base_url('announcements/1'); ?>">
                     <span class="material-icons-sharp">
                         mail_outline
                     </span>
-                    <h3>Messages</h3>
+                    <h3>Announcements</h3>
                     <span class="message-count">27</span>
-                </a>
-                <a href="#">
+                </a> -->
+                <!-- <a href="#">
                     <span class="material-icons-sharp">
                         inventory
                     </span>
                     <h3>Help & Support</h3>
-                </a>
-                <!-- <a href="#">
+                </a> -->
+                <a href="<?= base_url('course-progress'); ?>">
                     <span class="material-icons-sharp">
                         report_gmailerrorred
                     </span>
-                    <h3>Reports</h3>
-                </a> -->
-                <!-- <a href="#">
-                    <span class="material-icons-sharp">
-                        settings
-                    </span>
-                    <h3>Settings</h3>
-                </a> -->
-                <!-- <a href="#">
+                    <h3>Course Progress</h3>
+                </a>
+                <a href="<?= base_url('course-progress/update/1'); ?>">
                     <span class="material-icons-sharp">
                         add
                     </span>
-                    <h3>New Login</h3>
-                </a> -->
-                <a href="<?= base_url('logout'); ?>">                    <span class="material-icons-sharp">
+                    <h3>Update Progress</h3>
+                </a>
+                <a href="<?= base_url('enrolled-courses'); ?>">
+                    <span class="material-icons-sharp">
+                        school
+                    </span>
+                    <h3>Enrolled Courses</h3>
+                </a><br>
+                <a href="<?= base_url('messages/send'); ?>"> <!-- Link to the inbox page -->
+        <span class="material-icons-sharp">
+            mail_outline
+        </span>
+        <h3>Send Messages</h3>
+    </a>
+
+                <!-- <a href="< ?= base_url('logout'); ?>">
+                    <span class="material-icons-sharp">
                         logout
                     </span>
                     <h3>Logout</h3>
-                </a>
-            </div>
+                </a> -->
+                  <!-- Add the link for the Messages -->
+    <a href="<?= base_url('messages/inbox'); ?>"> <!-- Link to the inbox page -->
+        <span class="material-icons-sharp">
+            mail_outline
+        </span>
+        <h3>Messages</h3>
+    </a>
+    
+</div>
         </aside>
         <!-- End of Sidebar Section -->
 
@@ -1036,6 +1052,11 @@ main .recent-orders a{
             <!-- End of Analyses -->
 
             <!-- New Users Section -->
+
+            <!--  -->
+         
+
+            <!--  -->
             <div class="new-users">
                 <!-- <h2>New Subject</h2> -->
                 <div class="content">
@@ -1077,6 +1098,7 @@ main .recent-orders a{
                         <small class="text-muted">Student</small>
                     </div>
                     <div class="profile-photo">
+                <!-- <img src="< ?= session() ->get('profile_picture') ?>" alt="Profile Picture" width="150"> -->
                         <img src="images/loginimg.png">
                     </div>
                 </div>
@@ -1251,3 +1273,4 @@ Orders.forEach(order => {
 
 </body>
 </html>
+
